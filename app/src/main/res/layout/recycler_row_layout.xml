@@ -34,7 +34,8 @@
                 app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/ic_launcher_background"
+                load_image="@{String.valueOf(coin.id)}"/>
 
             <TextView
                 android:id="@+id/tvRowTitle"

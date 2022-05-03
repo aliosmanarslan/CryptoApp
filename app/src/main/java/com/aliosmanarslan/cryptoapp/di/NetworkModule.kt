@@ -26,23 +26,24 @@ object NetworkModule {
     @Provides
     fun provideHttpLoggerInterceptor(): HttpLoggingInterceptor{
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG){
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         }else httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
         return  httpLoggingInterceptor
-        }
+    }
+
     @Singleton
     @Provides
-    fun provideHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient{
-        return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
+    fun provideHttpClint(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient{
+        return OkHttpClient.Builder().readTimeout(60,TimeUnit.SECONDS)
+            .connectTimeout(60,TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
     @Singleton
     @Provides
     fun provideConverterFactory(): GsonConverterFactory{
-        return  GsonConverterFactory.create()
+        return GsonConverterFactory.create()
     }
 
     @Singleton
@@ -50,7 +51,7 @@ object NetworkModule {
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
-    ): Retrofit{
+    ): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient).addConverterFactory(gsonConverterFactory).build()
     }
 
@@ -59,5 +60,4 @@ object NetworkModule {
     fun provideApiFactory(retrofit: Retrofit): ApiFactory{
         return retrofit.create(ApiFactory::class.java)
     }
-
 }

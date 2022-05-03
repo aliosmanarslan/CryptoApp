@@ -20,20 +20,20 @@ abstract class BaseRepository {
                 NetworkResult.Success(apiRequest.invoke())
             }catch (throwable: Throwable){
                 when(throwable){
-                is HttpException -> {
-                    NetworkResult.Error(false, errorBodyParser(throwable.response()?.errorBody()?.string()))
+                    is HttpException -> {
+                        NetworkResult.Error(false, errorBodyParser(throwable.response()?.errorBody()?.string()))
+                    }
+                    else ->  NetworkResult.Error(true,throwable.localizedMessage)
                 }
-                else -> NetworkResult.Error(true, throwable.localizedMessage)
             }
         }
     }
-  }
 }
 
 private fun errorBodyParser(error: String?): String{
     error?.let {
         return try {
-            val errorResponse = Gson().fromJson(error, ErrorResponse::class.java)
+            val errorResponse = Gson().fromJson(error,ErrorResponse::class.java)
             val errorMessage = errorResponse.status?.errorMessage
             errorMessage ?: "Bilinmeyen bir hata oluştu"
         }catch (e: Exception){

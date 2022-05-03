@@ -6,5 +6,5 @@ package com.aliosmanarslan.cryptoapp.utils
 object Constants {
     const val BASE_URL = "https://pro-api.coinmarketcap.com/"
     const val  API_KEY = "9888b5d6-61fe-4e04-9b04-46420031280b"
-    const val LIMIT = "10"
+    const val LIMIT = "50"
 }

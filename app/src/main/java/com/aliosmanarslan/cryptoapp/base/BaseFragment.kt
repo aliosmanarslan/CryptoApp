@@ -14,25 +14,24 @@ import java.lang.IllegalArgumentException
  */
 abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
-): Fragment() {
+): Fragment(){
 
     private var _binding: VB? = null
     protected val binding: VB get() = _binding as VB
 
-    protected abstract val viewModel:VM
+    protected abstract val viewModel: VM
     protected abstract fun onCreateFinished()
     protected abstract fun initializeListeners()
-    protected abstract fun obverseEvents()
+    protected abstract fun observeEvents()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = bindingInflater.invoke(inflater)
 
-        if(_binding == null){
+        if (_binding == null){
             throw IllegalArgumentException("Binding null")
         }
 
@@ -43,7 +42,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
         super.onViewCreated(view, savedInstanceState)
         onCreateFinished()
         initializeListeners()
-        obverseEvents()
+        observeEvents()
     }
 
     override fun onDestroyView() {
